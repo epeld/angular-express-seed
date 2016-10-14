@@ -19,7 +19,7 @@ block body
 
     .composer {{ user.name || 'Anon' }} says:
         textarea(name='message', ng-model='nextMessage.message', placeholder='Type your message here', class='message-area')
-        button(ng-enable='!!nextMessage.message', ng-click="send()", class='button--send') Send
+        button(ng-disabled='!nextMessage.message', ng-click="send()", class='button--send') Send
 
   script(src='js/lib/socket.io.js')
   script(src='js/lib/angular.js')
