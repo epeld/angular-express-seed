@@ -30,6 +30,7 @@ app.set('view engine', 'jade');
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(methodOverride());
+app.use(express.static('public/'));
 
 var env = process.env.NODE_ENV || 'development';
 

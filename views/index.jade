@@ -2,18 +2,14 @@ extends layout
 
 block body
   div(ng-controller='AppCtrl')
-    h2 Hello {{name}}
-    ul.menu
-      li
-        a(href='view1') view1
-      li
-        a(href='view2') view2
-
-    div(ng-view)
-
-    div
-      | Angular seed app: v
-      span(app-version)
+    h2 This is the fantastic Chat App
+    p Messages will appear here.
+    .message-list
+      .message(ng-repeat="message in history.messages")
+        p {{ message.message }}
+    .composer Type your message:
+        textarea(name='message', ng-model='nextMessage.message', placeholder='Type your message here')
+        button(ng-enable='!!nextMessage.message', ng-click="send()") Send
 
   script(src='js/lib/angular/angular.js')
   script(src='js/app.js')
