@@ -1,19 +1,6 @@
-# Angular Express Seed
+# The Super Fantastic Chat App
 
-Start an awesome app with AngularJS on the front, Express + Node on the back. This project is an
-application skeleton for a typical [AngularJS](http://angularjs.org/) web app for those who want
-to use Node to serve their app.
-
-The seed contains angular libraries, test libraries and a bunch of scripts all preconfigured for
-instant web development gratification. Just clone the repo (or download the zip/tarball) and
-you're ready to develop your application.
-
-The seed app shows how to wire together Angular client-side components with Express on the server.
-It also illustrates writing angular partials/views with the Jade templating library.
-
-_Note: Although Jade supports interpolation, you should be doing that mostly on the client. Mixing
-server and browser templating will convolute your app. Instead, use Jade as a syntactic sugar for
-HTML, and let AngularJS take care of interpolation on the browser side._
+A super simple chat application that you should be able to download and fire up immediately.
 
 ## How to use angular-express-seed
 
@@ -21,18 +8,23 @@ Clone the angular-express-seed repository, run `npm install` to grab the depende
 
 ### Running the app
 
-Runs like a typical express app:
+Start the server:
+> npm run server
 
-    node app.js
+Run a listener client:
+> npm run listen
+
+### Publishing Messages
+You can publish messages by sending a http POST to /api/ with the header 'Content-Type: application/json'
+and a JSON object with *at least* the field 'message' available on it.
+
+### Using the GUI
+Once the server is up and running. Navigate to http://localhost:3000 and you should see the GUI.
+It is still work in progress and non-functional at this stage.
 
 ### Running tests
 
 Coming soon!
-
-### Receiving updates from upstream
-
-Just fetch the changes and merge them into your project with git.
-
 
 ## Directory Layout
     
@@ -66,16 +58,5 @@ Just fetch the changes and merge them into your project with git.
 
 
 
-## Example App
-
-A simple [blog](https://github.com/btford/angular-express-blog) based on this seed.
-
-
-## Contact
-
-For more information on AngularJS please check out http://angularjs.org/
-For more on Express and Jade, http://expressjs.com/ and http://jade-lang.com/ are
-your friends.
-
 ## License
-MIT
+GPL
