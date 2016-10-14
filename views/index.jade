@@ -5,12 +5,13 @@ block body
     .status(ng-class='[history.status.connectionStatus, "connection-status"]')
        span {{ history.status.connectionStatus }}
 
-    h2 This is the fantastic Chat App
-      a.link(href='https://github.com/epeld/angular-express-seed/tree/chat-app') Check it
-    .user-info
-      .info-group
-        span.question Your Username:
-        input.answer(ng-model='user.name', placeholder='Anon')
+    .header
+      h2 This is the fantastic Chat App
+        a.link(href='https://github.com/epeld/angular-express-seed/tree/chat-app') Check it
+      .user-info
+        .info-group
+          span.question Your Username:
+          input.answer(ng-model='user.name', placeholder='Anon')
     .message-list
       .message(ng-repeat="message in history.messages track by $index",
                ng-class='{ "message--system" : hasTag(message, "system") }',

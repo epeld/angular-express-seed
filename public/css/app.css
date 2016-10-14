@@ -9,6 +9,13 @@
     box-sizing: border-box;
 }
 
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
 .message-list {
     padding: 1em;
     border: solid 2px gray;
