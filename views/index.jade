@@ -9,17 +9,21 @@ block body
         span.question Your Username:
         input.answer(ng-model='user.name', placeholder='Anon')
     .message-list
-      .message(ng-repeat="message in history.messages",
+      .message(ng-repeat="message in history.messages track by $index",
                ng-class='{ "message--system" : hasTag(message, "system") }')
-        p 
-          span(ng-hide='hasTag(message, "system")') {{ message.from || 'Anon' }} says: 
+        p(ng-click='togglePinnedMessage($index)') 
+          span(ng-hide='hasTag(message, "system")') {{ message.from || 'Anon' }}: 
           span.message__content {{ message.message }}
+        
+    .message__raw JSON: {{ pinnedIndex >= 0 ? prettyJSON(history.messages[pinnedIndex]) : {} }}
+
     .composer {{ user.name || 'Anon' }} says:
         textarea(name='message', ng-model='nextMessage.message', placeholder='Type your message here', class='message-area')
-        button(ng-enable='!!nextMessage.message', ng-click="send()") Send
+        button(ng-enable='!!nextMessage.message', ng-click="send()", class='button--send') Send
 
   script(src='js/lib/socket.io.js')
-  script(src='js/lib/angular/angular.js')
+  script(src='js/lib/angular.js')
+  script(src='js/lib/angular-route.js')
   script(src='js/socket.js')
   script(src='js/app.js')
   script(src='js/services.js')

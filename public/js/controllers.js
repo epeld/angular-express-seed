@@ -39,7 +39,11 @@ angular.module('myApp.controllers', []).
   controller('AppCtrl', ['$scope', 'Messages', function ($scope, messages) {
 
       var nextMessage = $scope.nextMessage = {};
-      var user = $scope.user = {};
+      var user = $scope.user = {
+	  userId : Math.random().toString(36).substring(7)
+      };
+
+      // $scope.colors = ['green', 'red', 'orange', 'pink'];
       
       $scope.history = {messages : messages.messages};
       $scope.send = function() {
@@ -52,6 +56,26 @@ angular.module('myApp.controllers', []).
       $scope.hasTag = function (message, tag) {
 	  if(!message.tags) return false;
 	  return message.tags.indexOf(tag) !== -1;
+      };
+
+      $scope.setHoveredMessage = function(ix) {
+	  $scope.hoverIndex = ix;
+	  if(ix !== null && ix !== pinnedIndex) {
+	      $scope.pinnedIndex = null;
+	  }
+      };
+
+      $scope.togglePinnedMessage = function(ix) {
+	  if($scope.pinnedIndex === ix) {
+	      $scope.pinnedIndex = null;
+	  }
+	  else {
+	      $scope.pinnedIndex = ix;
+	  }
+      };
+
+      $scope.prettyJSON = function(data) {
+	  return JSON.stringify(data, null, 2);
       };
   }]).
   controller('MyCtrl1', function ($scope) {

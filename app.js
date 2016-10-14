@@ -61,6 +61,7 @@ app.set('io', io);
 io.on('connection', function(socket) {
     // Greet all new clients
     socket.emit('message', { 'message': 'Hello from Server', 'from' : 'server', 'tags': ['system'] });
+    socket.broadcast.emit('message', { 'message' : 'New User Connected', 'from' : 'server', 'tags': ['system']});
     
     socket.on('message', function(data) {
 	console.log('Received message', data);
