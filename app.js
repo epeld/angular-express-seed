@@ -20,10 +20,13 @@ var app = module.exports = express();
  * Configuration
  */
 
-// all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
+
+/*
+ * Middleware
+ */
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(methodOverride());
@@ -48,10 +51,20 @@ server.listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
 });
 
+
+/**
+ * Socket IO
+ */
 var io = require('socket.io')(server);
 app.set('io', io);
 io.on('connection', function(socket) {
+    // Greet all new clients
     socket.emit('message', { 'message': 'Hello from Server', 'from' : 'server' });
+});
+
+io.on('message', function(data) {
+    // Publish all received messages as is
+    api.publishMessage(data, io);
 });
 
 
