@@ -1,43 +1,50 @@
 'use strict';
 
-/* Controllers */
-
 angular.module('myApp.controllers', []).
-  controller('AppCtrl', function ($scope, $http) {
+    factory('ChatSocket', ['socketFactory', function(socketFactory){
+	return socketFactory();
+    }]).
 
-      $scope.name = 'you';
-      $scope.nextMessage = {};
+    factory('Messages', ['ChatSocket', function (socket) {
+	var messages = [{message : 'Start of History'}];
+	
+	socket.connect();
+	socket.on('disconnect', function() {
+	    console.error('Disconnect');
+	});
+	socket.on('connect', function() {
+	    console.log('Connected!');
+	});
+	socket.on('message', function(data) {
+	    console.log('Received', data);
+	    messages.push(data);
+	});
 
-      $scope.history = {
-	  messages : [{
-	      message : 'Test message'
-	  }]
-      };
+	var send = function(message) {
+	    if(message.message === undefined) {
+		console.error('Invalid message', message);
+		return;
+	    }
+	    console.log('Going to send', message);
+	    socket.emit('message', message);
+	};
+	
 
+	return {
+	    messages : messages,
+	    send : send
+	};
+    }]).
+
+  controller('AppCtrl', ['$scope', 'Messages', function ($scope, messages) {
+
+      var nextMessage = $scope.nextMessage = {};
+      $scope.history = {messages : messages.messages};
       $scope.send = function() {
-	  $http({
-	      method: 'POST',
-	      url: '/api/'
-	  }).
-	  error(function (data, status, headers, config) {
-	      console.error(data, status, headers, config);
-	  });
+	  messages.send(nextMessage);
+	  nextMessage = $scope.nextMessage = {};
       };
-
-      /*
-    $http({
-      method: 'GET',
-      url: '/api/name'
-    }).
-    success(function (data, status, headers, config) {
-      $scope.name = data.name;
-    }).
-    error(function (data, status, headers, config) {
-      $scope.name = 'Error!';
-    });
-    */
-
-  }).
+  }]).
   controller('MyCtrl1', function ($scope) {
     // write Ctrl here
 

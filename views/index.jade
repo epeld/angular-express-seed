@@ -11,7 +11,9 @@ block body
         textarea(name='message', ng-model='nextMessage.message', placeholder='Type your message here')
         button(ng-enable='!!nextMessage.message', ng-click="send()") Send
 
+  script(src='js/lib/socket.io.js')
   script(src='js/lib/angular/angular.js')
+  script(src='js/socket.js')
   script(src='js/app.js')
   script(src='js/services.js')
   script(src='js/controllers.js')

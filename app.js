@@ -61,11 +61,15 @@ app.set('io', io);
 io.on('connection', function(socket) {
     // Greet all new clients
     socket.emit('message', { 'message': 'Hello from Server', 'from' : 'server' });
+    
+    socket.on('message', function(data) {
+	console.log('Received message', data);
+	
+	// Publish all received messages as is
+	api.publishMessage(data, io);
+    });
 });
 
-io.on('message', function(data) {
-    // Publish all received messages as is
-    api.publishMessage(data, io);
-});
+
 
 
