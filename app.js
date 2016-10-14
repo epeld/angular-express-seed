@@ -27,40 +27,31 @@ app.set('view engine', 'jade');
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(methodOverride());
-app.use(express.static(path.join(__dirname, 'public')));
 
 var env = process.env.NODE_ENV || 'development';
 
-// development only
-if (true || env === 'development') {
-    app.use(errorHandler());
-}
-
-// production only
-if (env === 'production') {
-  // TODO
-}
-
+app.use(errorHandler());
 
 /**
  * Routes
  */
 
-// serve index and view partials
-app.get('/', routes.index);
-app.get('/partials/:name', routes.partials);
-
-// JSON API
-app.get('/api/name', api.name);
-
-// redirect all others to the index (HTML5 history)
+app.post('/api/', api.postMessage);
 app.get('*', routes.index);
 
 
 /**
  * Start Server
  */
-
-http.createServer(app).listen(app.get('port'), function () {
+var server = http.createServer(app);
+server.listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+var io = require('socket.io')(server);
+app.set('io', io);
+io.on('connection', function(socket) {
+    socket.emit('message', { 'message': 'Hello from Server', 'from' : 'server' });
+});
+
+
