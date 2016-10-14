@@ -59,3 +59,9 @@ Coming soon!
 
 ## License
 GPL
+
+## TODOs
+
+- Store message history in local or sesseion storage. Store also username there
+- Allow filtering by tag, text match
+- Allow templating a message; adding custom tags etc

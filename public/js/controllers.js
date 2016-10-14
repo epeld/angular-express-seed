@@ -7,13 +7,17 @@ angular.module('myApp.controllers', []).
 
     factory('Messages', ['ChatSocket', function (socket) {
 	var messages = [];
+	var obj;
+	var status = {};
 	
 	socket.connect();
 	socket.on('disconnect', function() {
 	    console.error('Disconnect');
+	    status.connectionStatus = 'disconnected';
 	});
 	socket.on('connect', function() {
 	    console.log('Connected!');
+	    status.connectionStatus = 'connected';
 	});
 	socket.on('message', function(data) {
 	    console.log('Received', data);
@@ -28,12 +32,17 @@ angular.module('myApp.controllers', []).
 	    console.log('Going to send', message);
 	    socket.emit('message', message);
 	};
+
+	status.connectionStatus = 'connecting';
 	
 
-	return {
+	obj = {
 	    messages : messages,
-	    send : send
+	    send : send,
+	    status : status
 	};
+
+	return obj;
     }]).
 
   controller('AppCtrl', ['$scope', 'Messages', function ($scope, messages) {
@@ -45,13 +54,14 @@ angular.module('myApp.controllers', []).
 
       // $scope.colors = ['green', 'red', 'orange', 'pink'];
       
-      $scope.history = {messages : messages.messages};
+      $scope.history = {messages : messages.messages, status : messages.status};
       $scope.send = function() {
 	  var msg = {from : user.name};
 	  angular.extend(msg, nextMessage);
 	  nextMessage = $scope.nextMessage = {};
 	  
 	  messages.send(msg);
+	  $scope.pinnedData = msg;
       };
       $scope.hasTag = function (message, tag) {
 	  if(!message.tags) return false;
@@ -68,9 +78,11 @@ angular.module('myApp.controllers', []).
       $scope.togglePinnedMessage = function(ix) {
 	  if($scope.pinnedIndex === ix) {
 	      $scope.pinnedIndex = null;
+	      $scope.pinnedData = null;
 	  }
 	  else {
 	      $scope.pinnedIndex = ix;
+	      $scope.pinnedData = messages.messages[ix];
 	  }
       };
 

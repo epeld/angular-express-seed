@@ -2,6 +2,9 @@ extends layout
 
 block body
   div(ng-controller='AppCtrl', class='chat')
+    .status(ng-class='[history.status.connectionStatus, "connection-status"]')
+       span {{ history.status.connectionStatus }}
+
     h2 This is the fantastic Chat App
       a.link(href='https://github.com/epeld/angular-express-seed/tree/chat-app') Check it
     .user-info
@@ -21,11 +24,12 @@ block body
           .tags
             span.tag(ng-repeat="tag in message.tags || [] track by $index", ng-style='{ "color" : getTagColor(tag) }', class='tag') {{ tag }}
         
-    .message__raw JSON: {{ pinnedIndex >= 0 ? prettyJSON(history.messages[pinnedIndex]) : {} }}
-
     .composer {{ user.name || 'Anon' }} says:
         textarea(name='message', ng-model='nextMessage.message', placeholder='Type your message here', class='message-area')
         button(ng-disabled='!nextMessage.message', ng-click="send()", class='button--send') Send
+
+
+    .message__raw {{ prettyJSON(pinnedData || {}) }}
 
   script(src='js/lib/socket.io.js')
   script(src='js/lib/angular.js')

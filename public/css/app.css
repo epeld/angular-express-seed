@@ -18,12 +18,13 @@
 }
 
 .message {
-    margin-bottom: 0.5em;
+    margin-bottom: 1em;
         display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    cursor: pointer;
 }
 
 .message__from {
@@ -83,4 +84,21 @@
 
 .button--send {
     padding: 1em;
+}
+
+.connected {
+    color: green;
+}
+
+.connecting {
+    color: lightgreen;
+}
+
+.disconnected {
+    color: red;
+}
+
+.connection-status {
+    text-align: right;
+    font-size: smaller;
 }
