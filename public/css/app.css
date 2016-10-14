@@ -19,6 +19,19 @@
 
 .message {
     margin-bottom: 0.5em;
+        display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.message__from {
+    margin-right: 0.5em;
+}
+
+.message__content {
+    flex-grow: 1;
 }
 
 .message__raw {
@@ -26,6 +39,16 @@
     font-size: smaller;
     color: gray;
     text-align: right;
+}
+
+.message__content {
+
+}
+
+.tag {
+    border-radius: 0.3em;
+    border: solid 1px lightgray;
+    padding: 0.25em 0.5em;
 }
 
 .message--system {

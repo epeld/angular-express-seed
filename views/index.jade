@@ -10,10 +10,16 @@ block body
         input.answer(ng-model='user.name', placeholder='Anon')
     .message-list
       .message(ng-repeat="message in history.messages track by $index",
-               ng-class='{ "message--system" : hasTag(message, "system") }')
-        p(ng-click='togglePinnedMessage($index)') 
-          span(ng-hide='hasTag(message, "system")') {{ message.from || 'Anon' }}: 
-          span.message__content {{ message.message }}
+               ng-class='{ "message--system" : hasTag(message, "system") }',
+               ng-click='togglePinnedMessage($index)', class='message__body')
+
+          span(ng-hide='hasTag(message, "system")', class='message__from') {{ message.from || 'Anon' }}:
+
+          span.message__content 
+            span {{ message.message }}
+
+          .tags
+            span.tag(ng-repeat="tag in message.tags || [] track by $index", ng-style='{ "color" : getTagColor(tag) }', class='tag') {{ tag }}
         
     .message__raw JSON: {{ pinnedIndex >= 0 ? prettyJSON(history.messages[pinnedIndex]) : {} }}
 

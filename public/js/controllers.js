@@ -74,6 +74,10 @@ angular.module('myApp.controllers', []).
 	  }
       };
 
+      $scope.getTagColor = function(tag) {
+	  return 'skyblue';
+      };
+
       $scope.prettyJSON = function(data) {
 	  return JSON.stringify(data, null, 2);
       };
