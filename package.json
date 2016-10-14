@@ -4,10 +4,11 @@
   "private": true,
   "dependencies": {
     "body-parser": "^1.0.2",
+    "errorhandler": "~1.4.3",
     "express": "~4.1.1",
     "jade": "~0.31.2",
     "method-override": "^1.0.0",
     "morgan": "^1.0.0",
-    "errorhandler": "~1.4.3"
+    "socketio": "^1.0.0"
   }
 }
