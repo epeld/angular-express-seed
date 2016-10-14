@@ -11,7 +11,7 @@
 
 .message-list {
     padding: 1em;
-    border: dashed 2px black;
+    border: solid 2px gray;
     flex-grow: 1;
     overflow: auto;
     position: relative;
