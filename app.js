@@ -60,7 +60,7 @@ var io = require('socket.io')(server);
 app.set('io', io);
 io.on('connection', function(socket) {
     // Greet all new clients
-    socket.emit('message', { 'message': 'Hello from Server', 'from' : 'server' });
+    socket.emit('message', { 'message': 'Hello from Server', 'from' : 'server', 'tags': ['system'] });
     
     socket.on('message', function(data) {
 	console.log('Received message', data);

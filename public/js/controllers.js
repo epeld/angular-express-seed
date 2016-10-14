@@ -6,7 +6,7 @@ angular.module('myApp.controllers', []).
     }]).
 
     factory('Messages', ['ChatSocket', function (socket) {
-	var messages = [{message : 'Start of History'}];
+	var messages = [];
 	
 	socket.connect();
 	socket.on('disconnect', function() {
@@ -39,10 +39,19 @@ angular.module('myApp.controllers', []).
   controller('AppCtrl', ['$scope', 'Messages', function ($scope, messages) {
 
       var nextMessage = $scope.nextMessage = {};
+      var user = $scope.user = {};
+      
       $scope.history = {messages : messages.messages};
       $scope.send = function() {
-	  messages.send(nextMessage);
+	  var msg = {from : user.name};
+	  angular.extend(msg, nextMessage);
 	  nextMessage = $scope.nextMessage = {};
+	  
+	  messages.send(msg);
+      };
+      $scope.hasTag = function (message, tag) {
+	  if(!message.tags) return false;
+	  return message.tags.indexOf(tag) !== -1;
       };
   }]).
   controller('MyCtrl1', function ($scope) {

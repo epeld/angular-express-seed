@@ -1,14 +1,21 @@
 extends layout
 
 block body
-  div(ng-controller='AppCtrl')
+  div(ng-controller='AppCtrl', class='chat')
     h2 This is the fantastic Chat App
-    p Messages will appear here.
+      a.link(href='https://github.com/epeld/angular-express-seed/tree/chat-app') Check it
+    .user-info
+      .info-group
+        span.question Your Username:
+        input.answer(ng-model='user.name', placeholder='Anon')
     .message-list
-      .message(ng-repeat="message in history.messages")
-        p {{ message.message }}
-    .composer Type your message:
-        textarea(name='message', ng-model='nextMessage.message', placeholder='Type your message here')
+      .message(ng-repeat="message in history.messages",
+               ng-class='{ "message--system" : hasTag(message, "system") }')
+        p 
+          span(ng-hide='hasTag(message, "system")') {{ message.from || 'Anon' }} says: 
+          span.message__content {{ message.message }}
+    .composer {{ user.name || 'Anon' }} says:
+        textarea(name='message', ng-model='nextMessage.message', placeholder='Type your message here', class='message-area')
         button(ng-enable='!!nextMessage.message', ng-click="send()") Send
 
   script(src='js/lib/socket.io.js')
