@@ -2,9 +2,8 @@
 
 A super simple chat application that you should be able to download and fire up immediately.
 
-## How to use angular-express-seed
-
-Clone the angular-express-seed repository, run `npm install` to grab the dependencies, and start hacking!
+### How to Install Dependencies
+> npm install
 
 ### Running the app
 
