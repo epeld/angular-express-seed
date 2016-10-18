@@ -13,18 +13,19 @@ block body
           span.question Your Username:
           input.answer(ng-model='user.name', placeholder='Anon')
     .message-list
-      .message(ng-repeat="message in history.messages track by $index",
-               ng-class='{ "message--system" : hasTag(message, "system") }',
-               ng-click='togglePinnedMessage($index)', class='message__body')
-
-          span(ng-hide='hasTag(message, "system")', class='message__from') {{ message.from || 'Anon' }}:
-
-          span.message__content 
-            span {{ message.message }}
-
-          .tags
-            span.tag(ng-repeat="tag in message.tags || [] track by $index", ng-style='{ "color" : getTagColor(tag) }', class='tag') {{ tag }}
-        
+      .message-list__scroller
+        .message(ng-repeat="message in history.messages track by $index",
+                 ng-class='{ "message--system" : hasTag(message, "system") }',
+                 ng-click='togglePinnedMessage($index)', class='message__body')
+  
+            span(ng-hide='hasTag(message, "system")', class='message__from') {{ message.from || 'Anon' }}:
+  
+            span.message__content 
+              span {{ message.message }}
+  
+            .tags
+              span.tag(ng-repeat="tag in message.tags || [] track by $index", ng-style='{ "color" : getTagColor(tag) }', class='tag') {{ tag }}
+          
     .composer {{ user.name || 'Anon' }} says:
         textarea(name='message', ng-model='nextMessage.message', placeholder='Type your message here', class='message-area')
         button(ng-disabled='!nextMessage.message', ng-click="send()", class='button--send') Send

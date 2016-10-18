@@ -9,6 +9,10 @@
     box-sizing: border-box;
 }
 
+.chat > * {
+    flex-shrink: 0;
+}
+
 .header {
     display: flex;
     flex-direction: row;
@@ -20,6 +24,7 @@
     padding: 1em;
     border: solid 2px gray;
     flex-grow: 1;
+    flex-shrink: 1;
     overflow: auto;
     position: relative;
 }
@@ -87,10 +92,12 @@
 .message-area {
     flex-grow: 1;
     margin: 1.5em 2em;
+    font-size: 1.2em;
 }
 
 .button--send {
     padding: 1em;
+    font-size: 1.2em;
 }
 
 .connected {
