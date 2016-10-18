@@ -96,8 +96,11 @@
 }
 
 .button--send {
-    padding: 1em;
-    font-size: 1.2em;
+    width: 5em;
+    height: 4em;
+    align-self: center;
+    margin: 1em 0;
+    flex-shrink: 0;
 }
 
 .connected {
